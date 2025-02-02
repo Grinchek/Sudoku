@@ -1,0 +1,81 @@
+.header-container {
+    height: 28vh;
+    background-image: url("./images/sudoku-header-logo.jpg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.container p {
+    font-size: large;
+    color: rgb(105, 29, 29);
+    text-align: center;
+}
+
+.container {
+    width: 60vh;
+    background-color: darkgray;
+    text-align: center;
+
+}
+
+.block {
+    max-width: 48%;
+}
+
+.cell {
+    width: 10vh;
+    font-size: 6vh;
+    height: 9.2vh;
+    border: 1px solid black;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.number-set {
+    margin-top: 5vh;
+
+}
+
+
+
+.container button:active {
+    background-color: lightyellow;
+}
+
+button {
+    color: rgb(77, 12, 12);
+}
+
+.exit-button {
+    height: 7vh;
+    width: 35vh;
+    margin: 3vh;
+    font-size: 4vh;
+}
+
+.exit-button:hover {
+    background-color: red;
+    font-size: 3vh;
+    color: white;
+}
+
+.flash-error {
+    animation: flash 0.3s ease-in-out;
+}
+
+@keyframes flash {
+    0% {
+        background-color: red;
+    }
+
+    100% {
+        background-color: white;
+    }
+}

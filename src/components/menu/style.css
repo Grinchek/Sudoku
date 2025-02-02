@@ -1,0 +1,41 @@
+.wraper {
+    display: flex;
+    justify-content: center;
+}
+
+.menu-container {
+    width: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: gray;
+    border-radius: 7%;
+}
+
+.menu-container button {
+    width: 45vh;
+    height: 12vh;
+    margin: 3vh;
+    border-radius: 7%;
+    border: none;
+    box-shadow: 10px 5px 5px darkslategray;
+    font-size: 5vh;
+}
+
+.menu-container button:hover,
+.menu-container button:focus,
+.menu-container button:active {
+    background-color: darkslategray;
+    color: lightyellow;
+    font-size: 7vh;
+    box-shadow: 15px 7.5px 7.5px darkslategray;
+    outline: none;
+
+}
+
+
+
+
+.menu-header {
+    text-align: center;
+}
