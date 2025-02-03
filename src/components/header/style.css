@@ -53,17 +53,24 @@ button {
     color: rgb(77, 12, 12);
 }
 
-.exit-button {
-    height: 7vh;
-    width: 35vh;
+.new-game-button {
+    width: 45vh;
+    height: 12vh;
     margin: 3vh;
-    font-size: 4vh;
+    border-radius: 7%;
+    border: none;
+    box-shadow: 10px 5px 5px darkslategray;
+    font-size: 5vh;
 }
 
-.exit-button:hover {
-    background-color: red;
-    font-size: 3vh;
-    color: white;
+.new-game-button:hover,
+.new-game-button:focus,
+.new-game-button:active {
+    background-color: darkslategray;
+    color: lightyellow;
+    font-size: 7vh;
+    box-shadow: 15px 7.5px 7.5px darkslategray;
+    outline: none;
 }
 
 .flash-error {

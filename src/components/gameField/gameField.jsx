@@ -9,7 +9,13 @@ const GameField = ({ difficulty }) => {
     const MAX_ERRORS = 5;
     const GAME_TIME = 300;
 
-    const createEmptyBoard = () => Array.from({ length: SIZE }, () => Array(SIZE).fill(0));
+    const createEmptyBoard = () => {
+        let board = [];
+        for (let i = 0; i < SIZE; i++) {
+            board.push(new Array(SIZE).fill(0));
+        }
+        return board;
+    };
 
     const isValidPlacement = (board, row, col, num) => {
         for (let i = 0; i < SIZE; i++) {
@@ -53,8 +59,10 @@ const GameField = ({ difficulty }) => {
     };
 
     const removeNumbers = (board, difficulty) => {
-        const newBoard = board.map(row => [...row]);
         let cellsToRemove = difficulty === 'easy' ? 10 : difficulty === 'medium' ? 18 : 25;
+
+        const newBoard = board.map(row => [...row]);
+
         while (cellsToRemove > 0) {
             let row = Math.floor(Math.random() * SIZE);
             let col = Math.floor(Math.random() * SIZE);
@@ -93,14 +101,25 @@ const GameField = ({ difficulty }) => {
         const timer = setInterval(() => setTimeLeft(prev => prev - 1), 1000);
         return () => clearInterval(timer);
     }, [timeLeft, errors]);
+    useEffect(() => {
+        if (checkWin()) {
+            setWin(true);
+            setGameOver(true);
+        }
+    }, [gameBoard]);
 
     const checkWin = () => {
+
         for (let row = 0; row < SIZE; row++) {
             for (let col = 0; col < SIZE; col++) {
-                if (gameBoard[row][col] !== solvedBoard[row][col]) return false;
+                if (gameBoard[row][col] !== solvedBoard[row][col]) {
+                    return false
+                }
+
             }
         }
         return true;
+
     };
 
     const selectCell = (row, col) => {
@@ -113,18 +132,15 @@ const GameField = ({ difficulty }) => {
         if (selectedCell) {
             const { row, col } = selectedCell;
             if (num === solvedBoard[row][col]) {
-                const newBoard = gameBoard.map(row => [...row]);
-                newBoard[row][col] = num;
-                setGameBoard(newBoard);
-
-                if (checkWin()) {
-                    setWin(true);
-                    setGameOver(true);
-                }
+                setGameBoard(prevBoard => {
+                    const newBoard = prevBoard.map(row => [...row]);
+                    newBoard[row][col] = num;
+                    return newBoard;
+                });
             } else {
                 setErrors(errors + 1);
                 setFlashingCell({ row, col });
-                setTimeout(() => setFlashingCell(null), 300);
+                setTimeout(() => setFlashingCell(null), 400);
             }
             setSelectedCell(null);
         }
@@ -139,11 +155,11 @@ const GameField = ({ difficulty }) => {
             {gameOver ? (
                 <>
                     <h2>{win ? "You Win! 🎉" : "Game Over!"}</h2>
-                    <button onClick={() => navigate('/')}>New game</button>
+                    <button className='new-game-button' onClick={() => navigate('/')}>New game</button>
                 </>
             ) : (
                 <div>
-                    <button onClick={() => navigate('/')}>New Game</button>
+                    <button className='new-game-button' onClick={() => navigate('/')}>New Game</button>
                     {gameBoard.map((row, rowIndex) => (
                         <div className="row" key={rowIndex}>
                             {row.map((cell, colIndex) => (
