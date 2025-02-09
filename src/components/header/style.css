@@ -39,7 +39,7 @@
 }
 
 .number-set {
-    margin-top: 5vh;
+    margin-top: 1vh;
 
 }
 
@@ -53,15 +53,46 @@ button {
     color: rgb(77, 12, 12);
 }
 
-.new-game-button {
+input {
     width: 45vh;
-    height: 12vh;
+    height: 8vh;
     margin: 3vh;
     border-radius: 7%;
     border: none;
     box-shadow: 10px 5px 5px darkslategray;
     font-size: 5vh;
 }
+
+.down-button {
+    width: 35vh;
+    height: 10vh;
+    margin: 3vh;
+    border-radius: 5%;
+    border: none;
+    box-shadow: 10px 5px 5px darkslategray;
+    font-size: 5vh;
+}
+
+.down-button:hover,
+.down-button:focus,
+.down-button:active {
+    background-color: darkslategray;
+    color: rgb(113, 208, 236);
+    font-size: 5vh;
+    box-shadow: 15px 7.5px 7.5px rgb(14, 45, 216);
+    outline: none;
+}
+
+.new-game-button {
+    width: 45vh;
+    height: 12vh;
+    margin: 3vh;
+    border-radius: 5%;
+    border: none;
+    box-shadow: 10px 5px 5px darkslategray;
+    font-size: 5vh;
+}
+
 
 .new-game-button:hover,
 .new-game-button:focus,
@@ -85,4 +116,9 @@ button {
     100% {
         background-color: white;
     }
+}
+
+.wins-loses-container {
+    display: flex;
+    justify-content: space-around;
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../header/style.css';
 
 const GameField = ({ difficulty }) => {
     const navigate = useNavigate();
@@ -8,6 +9,15 @@ const GameField = ({ difficulty }) => {
     const BLOCK_COLS = 3;
     const MAX_ERRORS = 5;
     const GAME_TIME = 300;
+    let index = 0;
+    const storedUsers = localStorage.getItem("listUsers");
+    const userList = JSON.parse(storedUsers) || [];
+    for (const user of userList) {
+        if (user.signedIn === true) {
+            index = userList.indexOf(user);
+        }
+
+    }
 
     const createEmptyBoard = () => {
         let board = [];
@@ -105,8 +115,14 @@ const GameField = ({ difficulty }) => {
         if (checkWin()) {
             setWin(true);
             setGameOver(true);
+
         }
     }, [gameBoard]);
+    useEffect(() => {
+        if (gameOver) {
+            winsLoseCounter();
+        }
+    }, [gameOver]);
 
     const checkWin = () => {
 
@@ -118,6 +134,7 @@ const GameField = ({ difficulty }) => {
 
             }
         }
+
         return true;
 
     };
@@ -145,21 +162,47 @@ const GameField = ({ difficulty }) => {
             setSelectedCell(null);
         }
     };
+    const winsLoseCounter = () => {
+        for (const user of userList) {
+            if (user.signedIn === true) {
+                const updatedUser = {
+                    ...user,
+                    wins: win ? user.wins + 1 : user.wins,
+                    loses: win ? user.loses : user.loses + 1,
+                };
+
+                userList[index] = updatedUser;
+                localStorage.setItem("listUsers", JSON.stringify(userList));
+                break;
+            }
+        }
+    };
+
 
     return (
         <div className="container">
             <h3>Time Left: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}</h3>
             <h3>Errors: {errors} / {MAX_ERRORS}</h3>
             <h3>Level {difficulty}</h3>
+            <div className="wins-loses-container">
+                <h3>Wins: {userList[index].wins}</h3>
+                <h3>Loses: {userList[index].loses}</h3>
+            </div>
+
+
 
             {gameOver ? (
+
                 <>
                     <h2>{win ? "You Win! 🎉" : "Game Over!"}</h2>
+
+
                     <button className='new-game-button' onClick={() => navigate('/')}>New game</button>
                 </>
             ) : (
                 <div>
-                    <button className='new-game-button' onClick={() => navigate('/')}>New Game</button>
+
+                    {/* <button className='new-game-button' onClick={() => navigate('/')}>New Game</button> */}
                     {gameBoard.map((row, rowIndex) => (
                         <div className="row" key={rowIndex}>
                             {row.map((cell, colIndex) => (
@@ -177,18 +220,24 @@ const GameField = ({ difficulty }) => {
                             ))}
                         </div>
                     ))}
-                    <h3>Pick a number</h3>
+
                     <div className="number-set">
+                        <h3>Pick a number</h3>
                         <div className="row">
                             {[1, 2, 3, 4, 5, 6].map(num => (
                                 <button className='cell' key={num} onClick={() => enterNumber(num)}>{num}</button>
                             ))}
                         </div>
                     </div>
+                    <button className='new-game-button' onClick={() => navigate('/menu')}>Back &larr;</button>
+
                 </div>
-            )}
-        </div>
+            )
+            }
+
+        </div >
     );
+
 };
 
 export default GameField;

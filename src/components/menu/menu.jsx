@@ -13,9 +13,11 @@ const Menu = () => {
                         <h1>Choose a level </h1>
                     </div>
                     <link></link>
-                    <button onClick={() => navigate('./easy')}>Easy</button>
-                    <button onClick={() => navigate('./medium')}>Medium</button>
-                    <button onClick={() => navigate('./hard')}>Hard</button>
+                    <button onClick={() => navigate('/easy')}>Easy</button>
+                    <button onClick={() => navigate('/medium')}>Medium</button>
+                    <button onClick={() => navigate('/hard')}>Hard</button>
+                    <button className='new-game-button' onClick={() => navigate('/')}>Back &larr;</button>
+
                 </div>
 
             </div>
