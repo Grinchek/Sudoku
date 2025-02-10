@@ -38,7 +38,8 @@ const LogIn = () => {
             const userList = JSON.parse(storedUsers) || [];
 
             if (userList.some(obj => obj.userName === values.userName)) {
-                alert("This email is already used")
+                alert("This email is already used");
+
 
             }
             else {
@@ -47,9 +48,10 @@ const LogIn = () => {
                 values.signedIn = false;
                 userList.push(values);
                 localStorage.setItem("listUsers", JSON.stringify(userList));
-                formik.resetForm();
+
 
             }
+            formik.resetForm();
             //renderUsers();
         }
 

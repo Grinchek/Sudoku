@@ -12,7 +12,7 @@ const App = () => {
   return (
 
     <Router>
-      {/* <Header /> */}
+
       <Routes>
         <Route path="/" element={<Header />} />
         <Route path="easy" element={<GameField difficulty={'easy'} />} />
